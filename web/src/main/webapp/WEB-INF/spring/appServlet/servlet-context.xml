@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven>
+		<argument-resolvers>
+			<beans:bean class="org.springframework.data.web.PageableArgumentResolver">
+			</beans:bean>
+		</argument-resolvers>
+	</annotation-driven>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/static/**" location="/static/" />
+	<resources mapping="/favicon.ico" location="/static/favicon.ico" />
+	<!-- use thymeleaf -->
+
+	<beans:bean id="templateResolver"
+		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<beans:property name="prefix" value="/WEB-INF/thymeleaf/" />
+		<beans:property name="suffix" value=".html" />
+		<beans:property name="templateMode" value="HTML5" />
+		<!-- Template cache is set to false (default is true). -->
+		<beans:property name="cacheable" value="false" />
+		<beans:property name="characterEncoding" value="UTF-8" />
+	</beans:bean>
+
+	<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<beans:property name="templateResolver" ref="templateResolver" />
+	</beans:bean>
+
+	<beans:bean
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles-definitions.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	
+	<!-- FreeMarker的配置 -->
+	<beans:bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<beans:property name="templateLoaderPaths" value="/WEB-INF/freeMarker/" />
+		<beans:property name="defaultEncoding" value="UTF-8" />
+		<beans:property name="freemarkerSettings">
+			<beans:props>
+				<beans:prop key="template_update_delay">10</beans:prop>
+				<beans:prop key="defaultEncoding">UTF-8</beans:prop>
+				<beans:prop key="url_escaping_charset">UTF-8</beans:prop>
+				<beans:prop key="locale">zh_CN</beans:prop>
+				<beans:prop key="boolean_format">true,false</beans:prop>
+				<beans:prop key="time_format">HH:mm:ss</beans:prop>
+				<beans:prop key="datetime_format">yyyy-MM-dd HH:mm:ss</beans:prop>
+				<beans:prop key="date_format">yyyy-MM-dd</beans:prop>
+				<beans:prop key="number_format">#.##</beans:prop>
+				<beans:prop key="whitespace_stripping">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- - The ContentNegotiatingViewResolver delegates to the InternalResourceViewResolver 
+		and BeanNameViewResolver, - and uses the requested media type (determined 
+		by the path extension) to pick a matching view. - When the media type is 
+		'text/html', it will delegate to the InternalResourceViewResolver's JstlView, 
+		- otherwise to the BeanNameViewResolver. -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<beans:property name="viewResolvers">
+			<beans:list>
+				
+				
+				
+				<beans:bean
+					class="org.springframework.web.servlet.view.BeanNameViewResolver">
+					<beans:property name="order" value="1" />
+				</beans:bean>
+
+				<beans:bean
+					class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+					<beans:property name="order" value="1" />
+				</beans:bean>
+
+				<!-- Default viewClass: JSTL view (JSP with html output) -->
+				<!-- <beans:bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<beans:property name="prefix" value="/WEB-INF/jsps/" />
+					<beans:property name="suffix" value=".jsp" />
+					<beans:property name="contentType" value="text/html; charset=utf-8" />
+					<beans:property name="order" value="3" />
+				</beans:bean> -->
+				
+				<!-- 配置 FreeMarker视图解析器 -->
+				<beans:bean id="viewResolverFreeMarker"
+					class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+					<beans:property name="viewClass"
+						value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"></beans:property>
+					<beans:property name="cache" value="false" />
+					<beans:property name="prefix" value="" />
+					<!-- <property name="suffix" value=".ftl" /> --><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
+					<beans:property name="contentType" value="text/html;charset=utf-8" />
+					<beans:property name="exposeRequestAttributes" value="true" />
+					<beans:property name="exposeSessionAttributes" value="true" />
+					<beans:property name="exposeSpringMacroHelpers" value="true" />
+					<beans:property name="order" value="1" />
+				</beans:bean>
+				
+				<beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+					<beans:property name="templateEngine" ref="templateEngine" />
+					<beans:property name="characterEncoding" value="UTF-8" />
+					<beans:property name="order" value="1" />
+					<!-- We need to set exclusions because Content Negotiation tries to 
+						resolve from -->
+					<!-- Thymeleaf even if a specific view bean (of a different class) is 
+						already -->
+					<!-- found, which might cause exceptions (e.g. ThymeleafView does not 
+						have a -->
+					<!-- 'marshaller' property). -->
+					<beans:property name="excludedViewNames" value="*.xml" />
+				</beans:bean>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	<default-servlet-handler />
+
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean
+				class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<beans:property name="paramName" value="locale"></beans:property>
+			</beans:bean>
+		</interceptor>
+	</interceptors>
+	<context:component-scan base-package="com.tianzhu.web" />
+
+	<!-- <beans:bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"> 
+		<beans:property name="order" value="1" /> </beans:bean> -->
+
+	<!-- <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"> 
+		<beans:property name="order" value="1" /> </beans:bean> -->
+
+</beans:beans>

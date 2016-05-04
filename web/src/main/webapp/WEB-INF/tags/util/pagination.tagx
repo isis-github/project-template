@@ -1,0 +1,121 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="page"
+    type="org.springframework.data.domain.Page" required="true"
+    rtexprvalue="true" />
+
+  <jsp:directive.attribute name="query" type="java.lang.String"
+    required="false" rtexprvalue="true" />
+    
+  <jsp:directive.attribute name="url" type="java.lang.String"
+    required="false" rtexprvalue="true" />
+
+  <c:set var="currentIndex" value="${page.number + 1}" />
+  <c:choose>
+    <c:when test="${currentIndex gt 5}">
+      <c:set var="beginIndex" value="${currentIndex - 5}" />
+    </c:when>
+    <c:otherwise>
+      <c:set var="beginIndex" value="1" />
+    </c:otherwise>
+  </c:choose>
+  <c:choose>
+    <c:when test="${beginIndex lt page.totalPages - 7}">
+      <c:set var="endIndex" value="${beginIndex + 7}" />
+    </c:when>
+    <c:otherwise>
+      <c:set var="endIndex" value="${page.totalPages}" />
+    </c:otherwise>
+  </c:choose>
+
+  <c:url var="firstUrl" value="${url}?page.page=1&amp;page.size=${page.size}&amp;${query}" />
+  <c:url var="lastUrl"
+    value="${url}?page.page=${page.totalPages}&amp;page.size=${page.size}&amp;${query}" />
+  <c:url var="prevUrl"
+    value="${url}?page.page=${currentIndex - 1}&amp;page.size=${page.size}&amp;${query}" />
+  <c:url var="nextUrl"
+    value="${url}?page.page=${currentIndex + 1}&amp;page.size=${page.size}&amp;${query}" />
+<div>
+  <ul class="pagination pull-left row">
+    <c:choose>
+      <c:when test="${page.number == 0}">
+        <li class="disabled"><a href="#">&lt;&lt;</a></li>
+        <li class="disabled"><a href="#">&lt;</a></li>
+      </c:when>
+      <c:otherwise>
+        <li><a href="${firstUrl}">&lt;&lt;</a></li>
+        <li><a href="${prevUrl}">&lt;</a></li>
+      </c:otherwise>
+    </c:choose>
+    <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+      <c:url var="pageUrl" value="${url}?page.page=${i}&amp;page.size=${page.size}&amp;${query}" />
+      <c:choose>
+        <c:when test="${i == currentIndex}">
+          <li class="active"><a href="${pageUrl}"><c:out
+                value="${i}" /></a></li>
+        </c:when>
+        <c:otherwise>
+          <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+        </c:otherwise>
+      </c:choose>
+    </c:forEach>
+    <c:choose>
+      <c:when test="${currentIndex == page.totalPages}">
+        <li class="disabled"><a href="#">&gt;</a></li>
+        <li class="disabled"><a href="#">&gt;&gt;</a></li>
+      </c:when>
+      <c:otherwise>
+        <li><a href="${nextUrl}">&gt;</a></li>
+        <li><a href="${lastUrl}">&gt;&gt;</a></li>
+      </c:otherwise>
+    </c:choose>
+  </ul>
+  
+  <c:set var="pagemin" value="5" />
+  <c:set var="pagemax" value="200" />
+  <c:set var="pagestep" value="5" />
+  
+  <script type="text/javascript">
+function go(object){
+	//console.log($('#pagenum').val()+':'+$('#pagesize').val());
+	var pagenum = $('#pagenum').val();
+	var pagesize = $('#pagesize').val();
+	var url = "${url}?page.page="+pagenum+"&amp;page.size="+pagesize+"&amp;${query}";
+	url =encodeURI(url);
+	//console.log(url);
+	$('#go').attr('href',url);
+}
+$(document).ready(
+		function (){
+			$('#go').on('click',go);
+		}
+		);
+</script>
+  <ul class="pagination pull-right row">
+    <li><a>${beginIndex}-${endIndex} of ${page.totalPages} 页</a></li>
+    <li><a>总数: ${page.totalElements}</a></li>
+	<li>
+	<span>每页显示:
+		<select style="width:60px;" id="pagesize">
+			<c:forEach var = "j" begin="${pagemin}" end="${pagemax }" step="${pagestep }">
+			   <c:choose>
+			      <c:when test="${j == page.size}">
+			        <option value="${j}" selected="selected">${j}</option>
+			      </c:when>
+			      <c:otherwise>
+			        <option value="${j}">${j}</option>
+			      </c:otherwise>
+		    	</c:choose>
+			</c:forEach>
+		</select>
+	</span>
+	</li>
+    <li><span>第:<input id="pagenum" style="height: 20px;width:60px;" type="text" value="${page.number+1}"/>页</span></li>
+    <li style="float:right;"><a id = "go" href="#" onclick="go(this);">GO</a></li>
+  </ul>
+<div class="row"></div>
+</div>
+</jsp:root>
