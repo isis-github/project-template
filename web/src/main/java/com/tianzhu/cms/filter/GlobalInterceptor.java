@@ -51,7 +51,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 				.addObject(
 						"TEMPLATE_BASE_PATH",
 						basePath
-								+ "/static/template/"
+								+ "/freeMarker/template/"
 								+ configService
 										.getStringByKey(ConfigConstant.SHISHUO_TEMPLATE));
 		modelAndView.addObject("shishuo_seo_title",

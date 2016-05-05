@@ -19,6 +19,7 @@ import com.tianzhu.cms.domain.constant.MediaConstant;
 import com.tianzhu.cms.domain.exception.UploadException;
 import com.tianzhu.cms.domain.model.entity.Media;
 import com.tianzhu.cms.domain.repository.MediaDao;
+import com.tianzhu.cms.util.MediaUtils;
 
 @Service
 public class MediaService {
@@ -62,8 +63,9 @@ public class MediaService {
 	 */
 	@CacheEvict(value = "media", allEntries = true)
 	public void deleteMedia(long attachmentId, String path) {
-		/*mediaDao.deleteMedia(attachmentId);
-		MediaUtils.deleteFile(path);*/
+		//mediaDao.deleteMedia(attachmentId);
+		mediaDao.delete(attachmentId);
+		MediaUtils.deleteFile(path);
 		
 	}
 
@@ -73,8 +75,8 @@ public class MediaService {
 	 */
 	@Cacheable("media")
 	public Media getMediaById(long attachmentId) {
-		//return mediaDao.getMediaById(attachmentId);
-		return null;
+		return mediaDao.findOne(attachmentId);
+		//return null;
 	}
 
 	/**

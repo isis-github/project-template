@@ -24,18 +24,18 @@ public abstract class TagPlugin extends ApplicationObjectSupport implements
 	@Autowired
 	protected HttpServletRequest request;
 
-	/*@Autowired
-	private FreeMarkerConfigurer freeMarkerConfigurer;*/
+	@Autowired
+	private FreeMarkerConfigurer freeMarkerConfigurer;
 
 	@PostConstruct
 	public void init() throws TemplateModelException {
-		/*String className = this.getClass().getName()
+		String className = this.getClass().getName()
 				.substring(this.getClass().getName().lastIndexOf(".") + 1);
 		String beanName = StringUtils.uncapitalize(className);
 		String tagName = "shishuo_" + SSUtils.toUnderline(beanName);
 		logger.info(tagName);
 		freeMarkerConfigurer.getConfiguration().setSharedVariable(tagName,
-				this.getApplicationContext().getBean(beanName));*/
+				this.getApplicationContext().getBean(beanName));
 	}
 
 }

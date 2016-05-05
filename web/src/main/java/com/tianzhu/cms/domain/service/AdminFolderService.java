@@ -1,5 +1,6 @@
 package com.tianzhu.cms.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,28 @@ public class AdminFolderService {
 
 	@CacheEvict(value = "folder", allEntries = true)
 	public AdminFolder addAdminFolder(AdminFolder adminFolder) {
-		/*adminFolder.setCreateTime(new Date());
-		return adminFolderDao.save(adminFolder);*/
-		return null;
+		adminFolder.setCreateTime(new Date());
+		return adminFolderDao.save(adminFolder);
+		//return null;
 	}
 
 	@CacheEvict(value = "folder", allEntries = true)
 	public void deleteAdminFolder(Long adminId, Long folderId) {
-		// adminFolderDao.deleteAdminFolder(adminId, folderId);
+		AdminFolder af =adminFolderDao.findAdminFolder(adminId, folderId);
+		
+		adminFolderDao.delete(af);
+		
 	}
 
 	public List<AdminFolder> getAdminFolderListById(Long adminId) {
-		/*List<AdminFolder> list = adminFolderDao
+		List<AdminFolder> list = adminFolderDao
 				.getAdminFolderListById(adminId);
-		return list;*/
-		return null;
+		return list;
+		//return null;
 	}
 
 	public AdminFolder getAdminFolderById(Long adminId, Long folderId) {
-		/*return adminFolderDao.getAdminFolderById(adminId, folderId);*/
-		return null;
+		return adminFolderDao.findAdminFolder(adminId, folderId);
+		//return null;
 	}
 }

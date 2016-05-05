@@ -89,13 +89,13 @@ public class ConfigService {
 	 */
 	@Cacheable(value = "config")
 	public String getStringByKey(String key) {
-		/*Config config = configDao.getConfigByKey(key);
+		Config config = configDao.getConfigByKey(key);
 		if (config == null) {
 			return "";
 		} else {
 			return config.getValue();
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	/**

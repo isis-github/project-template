@@ -7,16 +7,23 @@
 package com.tianzhu.cms.domain.service;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.tianzhu.cms.domain.constant.SystemConstant;
 import com.tianzhu.cms.domain.exception.AuthException;
 import com.tianzhu.cms.domain.model.entity.Admin;
 import com.tianzhu.cms.domain.repository.AdminDao;
+import com.tianzhu.cms.util.AuthUtils;
+import com.tianzhu.cms.util.PropertyUtils;
 
 /**
  * 管理员
@@ -44,11 +51,11 @@ public class AdminService {
 	 */
 	public Admin save(Admin admin)
 			throws AuthException {
-		/*Date now = new Date();
+		Date now = new Date();
 		admin.setPassword(AuthUtils.getPassword(admin.getPassword()));
 		admin.setCreateTime(now);
-		return adminDao.save(admin);*/
-		return null;
+		return adminDao.save(admin);
+		//return null;
 	}
 
 	// ///////////////////////////////
@@ -62,7 +69,7 @@ public class AdminService {
 	 * @return Integer
 	 */
 	public void deleteAdmin(Long adminId) {
-		// adminDao.delete(adminId);
+		adminDao.delete(adminId);
 	}
 
 	// ///////////////////////////////
@@ -80,11 +87,13 @@ public class AdminService {
 	 * @throws AuthException
 	 */
 
-	/*public void updateAdminByAmdinId(Long adminId, String password)
+	public void updateAdminByAmdinId(Long adminId, String password)
 			throws AuthException {
 		String pwd = AuthUtils.getPassword(password);
-		adminDao.updateAdminByadminId(adminId, pwd);
-	}*/
+		Admin ad = adminDao.findOne(adminId);
+		ad.setPassword(pwd);
+		adminDao.save(ad);
+	}
 
 	// ///////////////////////////////
 	// ///// 查詢 ////////
@@ -101,7 +110,7 @@ public class AdminService {
 	public void adminLogin(String name, String password,
 			HttpServletRequest request) throws AuthException,
 			IOException {
-		/*Admin admin = adminDao.getAdminByName(name);
+		Admin admin = adminDao.getAdminByName(name);
 		if (admin == null) {
 			throw new AuthException("邮箱或密码错误");
 		}
@@ -119,7 +128,7 @@ public class AdminService {
 					admin);
 		} else {
 			throw new AuthException("邮箱或密码错误");
-		}*/
+		}
 	}
 
 	/**
@@ -127,7 +136,7 @@ public class AdminService {
 	 */
 	public Admin getAdminById(Long adminId) {
 		//return adminDao.getAdminById(adminId);
-		return null;
+		return adminDao.findOne(adminId);
 	}
 
 	/**
@@ -137,9 +146,11 @@ public class AdminService {
 	 * @param rows
 	 * @return List<Admin>
 	 */
-	public List<Admin> getAllList(long offset, long rows) {
+	public List<Admin> getAllList(int offset, int rows) {
+		Pageable pageable = new PageRequest(offset, rows);
+		return adminDao.findAll(pageable).getContent();
 		//return adminDao.getAllList(offset, rows);
-		return null;
+		//return null;
 	}
 
 	/**
@@ -147,9 +158,10 @@ public class AdminService {
 	 * 
 	 * @return Integer
 	 */
-	public int getAllListCount() {
+	public long getAllListCount() {
 		//return adminDao.getAllListCount();
-		return 0;
+		return adminDao.count();
+		//return 0;
 	}
 
 	/**
@@ -176,14 +188,14 @@ public class AdminService {
 	 * @return Admin
 	 */
 	public Admin getAdminByName(String name) {
-		//return adminDao.getAdminByName(name);
-		return null;
+		return adminDao.getAdminByName(name);
+		//return null;
 	}
 
 	public Long getSuperAdminId() {
-		/*Admin admin = getAdminByName(PropertyUtils
+		Admin admin = getAdminByName(PropertyUtils
 				.getValue("shishuocms.admin"));
-		return admin.getAdminId();*/
-		return null;
+		return admin.getAdminId();
+		//return null;
 	}
 }

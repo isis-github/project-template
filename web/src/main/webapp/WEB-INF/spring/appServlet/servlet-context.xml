@@ -50,7 +50,7 @@
 	
 	
 	<!-- FreeMarker的配置 -->
-	<beans:bean id="freeMarkerConfigurer"
+	<!-- <beans:bean id="freeMarkerConfigurer"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<beans:property name="templateLoaderPaths" value="/WEB-INF/freeMarker/" />
 		<beans:property name="defaultEncoding" value="UTF-8" />
@@ -68,7 +68,7 @@
 				<beans:prop key="whitespace_stripping">true</beans:prop>
 			</beans:props>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
 	<!-- - The ContentNegotiatingViewResolver delegates to the InternalResourceViewResolver 
 		and BeanNameViewResolver, - and uses the requested media type (determined 
@@ -143,7 +143,7 @@
 			</beans:bean>
 		</interceptor>
 	</interceptors>
-	<context:component-scan base-package="com.tianzhu.web" />
+	<context:component-scan base-package="com.tianzhu" />
 
 	<!-- <beans:bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"> 
 		<beans:property name="order" value="1" /> </beans:bean> -->

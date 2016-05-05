@@ -6,7 +6,9 @@
 
 package com.tianzhu.cms.domain.service;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.tianzhu.cms.domain.constant.ConfigConstant;
+import com.tianzhu.cms.domain.constant.SystemConstant;
 import com.tianzhu.cms.domain.exception.FolderNotFoundException;
 import com.tianzhu.cms.domain.exception.TemplateNotFoundException;
+import com.tianzhu.cms.domain.model.entity.Folder;
 
 /**
  * 模板工具类
@@ -80,7 +85,7 @@ public class TemplateService {
 	 */
 	public String getFolderTemplate(long folderId)
 			throws TemplateNotFoundException, FolderNotFoundException {
-		/*List<FolderVo> folderPathList = folderService
+		List<Folder> folderPathList = folderService
 				.getFolderPathListByFolderId(folderId);
 		List<String> themeOrderList = new ArrayList<String>();
 		themeOrderList.add(FOLDER_TEMPLATE_PREFIX);
@@ -98,8 +103,8 @@ public class TemplateService {
 		}
 		throw new TemplateNotFoundException("模板文件："
 				+ this.getTemplatePath(FOLDER_TEMPLATE_PREFIX) + ".ftl"
-				+ " 不存在！！");*/
-		return null;
+				+ " 不存在！！");
+		//return null;
 	}
 
 	/**
@@ -113,7 +118,7 @@ public class TemplateService {
 	 */
 	public String getArticleTemplate(long folderId, long articleId)
 			throws TemplateNotFoundException, FolderNotFoundException {
-		/*List<FolderVo> folderPathList = folderService
+		List<Folder> folderPathList = folderService
 				.getFolderPathListByFolderId(folderId);
 		List<String> themeOrderList = new ArrayList<String>();
 		themeOrderList.add(FILE_TEMPLATE_PREFIX);
@@ -131,8 +136,8 @@ public class TemplateService {
 			}
 		}
 		throw new TemplateNotFoundException("模板文件："
-				+ this.getTemplatePath(FILE_TEMPLATE_PREFIX) + " 不存在！！");*/
-		return null;
+				+ this.getTemplatePath(FILE_TEMPLATE_PREFIX) + " 不存在！！");
+		//return null;
 	}
 
 	/**
@@ -142,10 +147,10 @@ public class TemplateService {
 	 * @return
 	 */
 	private String getTemplatePath(String template) {
-		/*return "/template/"
+		return "/template/"
 				+ configService.getStringByKey(ConfigConstant.SHISHUO_TEMPLATE)
-				+ "/" + template;*/
-		return null;
+				+ "/" + template+ ".ftl";
+		//return null;
 	}
 
 	/**
@@ -156,7 +161,7 @@ public class TemplateService {
 	 */
 	@Cacheable("default")
 	public Boolean isExist(String theme) {
-		/*String themePath = "/WEB-INF/static/template/"
+		String themePath = "/WEB-INF/freeMarker/"
 				+ configService.getStringByKey(ConfigConstant.SHISHUO_TEMPLATE)
 				+ "/" + theme + ".ftl";
 		File file = new File(SystemConstant.SHISHUO_CMS_ROOT + themePath);
@@ -166,8 +171,8 @@ public class TemplateService {
 		} else {
 			logger.info("尝试使用模板：" + themePath+"【不存在】");
 			return false;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	// ///////////////////////////////

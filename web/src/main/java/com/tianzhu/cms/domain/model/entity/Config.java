@@ -38,7 +38,7 @@ public class Config implements Serializable {
 	@Column(length=2000)
 	private String description;
 
-	@Column(name="\"KEY\"", nullable=false, length=45)
+	@Column(name="KEY", nullable=false, length=45)
 	private String key;
 
 	@Column(length=200)

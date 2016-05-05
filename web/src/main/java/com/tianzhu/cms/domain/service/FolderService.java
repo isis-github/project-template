@@ -6,6 +6,7 @@
 
 package com.tianzhu.cms.domain.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -178,14 +179,14 @@ public class FolderService {
 	 */
 	@Cacheable(value = "folder")
 	public Folder getFolderById(long folderId) throws FolderNotFoundException {
-		/*FolderVo folder = folderDao.getFolderById(folderId);
+		Folder folder = folderDao.getFolderById(folderId);
 		if (folder == null) {
 			throw new FolderNotFoundException("");
 		} else {
 			logger.debug("目录("+folderId+")中的图片尺寸："+folder.getWidth()+" x "+folder.getHeight());
 			return folder;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	/**
@@ -241,10 +242,10 @@ public class FolderService {
 	 */
 	@Cacheable(value = "folder")
 	public List<Folder> getFolderListByFatherId(long fatherId,
-			FolderConstant.status status) {
-		/*logger.info("cache missing!!!");
-		return folderDao.getFolderListByFatherId(fatherId, status);*/
-		return null;
+			int status) {
+		logger.info("cache missing!!!");
+		return folderDao.getFolderListByFatherId(fatherId, status);
+		//return null;
 	}
 
 	/**
@@ -257,13 +258,13 @@ public class FolderService {
 	 */
 	@Cacheable(value = "folder")
 	public Folder getFolderByEname(String ename) throws FolderNotFoundException {
-		/*Folder folder = folderDao.getFolderByEname(ename);
+		Folder folder = folderDao.getFolderByEname(ename);
 		if (folder == null) {
 			throw new FolderNotFoundException(ename + " 目录，不存在");
 		} else {
 			return folder;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	@Cacheable(value = "folder")
@@ -287,19 +288,19 @@ public class FolderService {
 	@Cacheable(value = "folder")
 	public List<Folder> getFolderPathListByFolderId(long folderId)
 			throws FolderNotFoundException {
-		/*List<FolderVo> list = new ArrayList<FolderVo>();
+		List<Folder> list = new ArrayList<Folder>();
 		if (folderId == 0) {
 			return list;
 		} else {
 			Folder folder = this.getFolderById(folderId);
 			String[] str = folder.getPath().split("#");
-			for (int i = 0; i < folder.getLevel(); i++) {
-				FolderVo fold = this.getFolderById(Long.parseLong(str[i]));
+			for (int i = 0; i < folder.getLevelId(); i++) {
+				Folder fold = this.getFolderById(Long.parseLong(str[i]));
 				list.add(fold);
 			}
 			return list;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	@CacheEvict(value = "folder", allEntries = true)

@@ -41,8 +41,8 @@ public class FolderListTag extends TagPlugin {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 
-		/*long folderId = 0;
-		List<FolderVo> list = new ArrayList<FolderVo>();
+		long folderId = 0;
+		List<Folder> list = new ArrayList<Folder>();
 		// 获取页面的参数
 		try {
 			if (params.get("ename") == null) {
@@ -58,7 +58,7 @@ public class FolderListTag extends TagPlugin {
 			// 丢弃
 		}
 		env.setVariable("tag_folder_list", DEFAULT_WRAPPER.wrap(list));
-		body.render(env.getOut());*/
+		body.render(env.getOut());
 	}
 
 }
