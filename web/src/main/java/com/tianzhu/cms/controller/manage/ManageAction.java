@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tianzhu.cms.domain.exception.FolderNotFoundException;
 import com.tianzhu.cms.domain.model.entity.Admin;
+import com.tianzhu.cms.domain.model.entity.Article;
 
 /**
  * @author lqq
@@ -31,17 +32,17 @@ public class ManageAction extends ManageBaseAction {
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, ModelMap modelMap)
 			throws FolderNotFoundException {
-		/*Admin admin = this.getAdmin(request);
+		Admin admin = this.getAdmin(request);
 		modelMap.put("articleCount", 0);
 		modelMap.put("downloadCount", 0);
 		modelMap.put("userCount", 0);
 		modelMap.put("folderAll", folderService.getAllFolderList(0));
-		List<ArticleVo> articleList = articleService
+		List<Article> articleList = articleService
 				.getArticleListByAdminIdAndFolderId(admin.getAdminId(), 0,
 						null, 0, 10);
 		modelMap.put("articleList", articleList);
-		return "manage/index";*/
-		return null;
+		return "manage/index.ftl";
+		//return null;
 	}
 
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianzhu.cms.domain.exception.ArticleNotFoundException;
 import com.tianzhu.cms.domain.exception.FolderNotFoundException;
+import com.tianzhu.cms.domain.model.entity.AdminFolder;
+import com.tianzhu.cms.domain.model.entity.Folder;
 import com.tianzhu.cms.domain.pojo.JsonVo;
 
 @Controller
@@ -28,24 +30,24 @@ public class ManageAdminFolderAction extends ManageBaseAction {
 	public String manage(
 			@RequestParam(value = "adminId", defaultValue = "1") long adminId,
 			ModelMap modelMap) throws FolderNotFoundException {
-		/*List<AdminFolderVo> list = new ArrayList<AdminFolderVo>();
-		FolderVo folder;
+		List<AdminFolder> list = new ArrayList<AdminFolder>();
+		Folder folder;
 		try {
 			list = adminFolderService.getAdminFolderListById(adminId);
-			for (AdminFolderVo adminFolder : list) {
+			for (AdminFolder adminFolder : list) {
 				folder = folderService.getFolderById(adminFolder.getFolderId());
-				adminFolder.setFolder(folder);
+				adminFolder.setFolderId(folder.getFolderId());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<FolderVo> folderAll = folderService.getAllFolderList(adminId);
+		List<Folder> folderAll = folderService.getAllFolderList(adminId);
 		modelMap.put("admin", adminService.getAdminById(adminId));
 		modelMap.put("list", list);
 		modelMap.put("folderAll", folderAll);
-		return "manage/adminFolder/manage";*/
-		return null;
+		return "manage/adminFolder/manage.ftl";
+		//return null;
 	}
 
 	@ResponseBody
@@ -54,18 +56,22 @@ public class ManageAdminFolderAction extends ManageBaseAction {
 			@RequestParam(value = "adminId") long adminId,
 			@RequestParam(value = "folderId") long folderId)
 			throws ArticleNotFoundException {
-		/*JsonVo<String> json = new JsonVo<String>();
-		AdminFolderVo adminFolder = adminFolderService.getAdminFolderById(
+		JsonVo<String> json = new JsonVo<String>();
+		AdminFolder adminFolder = adminFolderService.getAdminFolderById(
 				adminId, folderId);
 		if (adminFolder == null) {
-			adminFolderService.addAdminFolder(adminId, folderId);
+			
+			AdminFolder ad = new AdminFolder();
+			ad.setAdminId(adminId);
+			ad.setFolderId(folderId);
+			adminFolderService.addAdminFolder(ad);
 			json.setResult(true);
 		} else {
 			json.setMsg("管理员已拥有该权限，请重新添加！");
 			json.setResult(false);
 		}
-		return json;*/
-		return null;
+		return json;
+		//return null;
 	}
 
 	@ResponseBody

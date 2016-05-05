@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianzhu.cms.domain.constant.GuestbookConstant;
+import com.tianzhu.cms.domain.model.entity.Guestbook;
 import com.tianzhu.cms.domain.pojo.JsonVo;
 import com.tianzhu.cms.domain.pojo.PageVo;
 import com.tianzhu.cms.domain.service.GuestbookService;
@@ -38,21 +39,21 @@ public class ManageGuestbookAction extends ManageBaseAction {
 	@RequestMapping(value = "/details.htm", method = RequestMethod.GET)
 	public String details(@RequestParam("guestbookId") long guestbookId,
 			ModelMap modelMap, HttpServletRequest request) throws Exception {
-		/*GuestbookVo guestbook = guestbookService.getGuestbookById(guestbookId);
+		Guestbook guestbook = guestbookService.getGuestbookById(guestbookId);
 		modelMap.put("guestbook", guestbook);
-		return "manage/guestbook/update";*/
-		return null;
+		return "manage/guestbook/update.ftl";
+		//return null;
 	}
 
 	@RequestMapping(value = "/examine.htm", method = RequestMethod.GET)
 	public String examine(@RequestParam("guestbookId") long guestbookId,
 			@RequestParam("status") GuestbookConstant.status status,
 			ModelMap modelMap, HttpServletRequest request) throws Exception {
-		/*guestbookService.updateStatusByMessageId(status, guestbookId);
-		GuestbookVo guestbook = guestbookService.getGuestbookById(guestbookId);
+		guestbookService.updateStatusByMessageId(status, guestbookId);
+		Guestbook guestbook = guestbookService.getGuestbookById(guestbookId);
 		modelMap.put("guestbook", guestbook);
-		return "manage/guestbook/update";*/
-		return null;
+		return "manage/guestbook/update.ftl";
+		//return null;
 	}
 
 	@ResponseBody

@@ -1,5 +1,6 @@
 package com.tianzhu.cms.domain.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class GuestbookService {
 
 	public Guestbook addGuestbook(String name, String email, String title,
 			String content) {
-		/*Guestbook guestbook = new Guestbook();
+		Guestbook guestbook = new Guestbook();
 		guestbook.setName(name);
 		guestbook.setEmail(email);
 		guestbook.setTitle(title);
@@ -26,9 +27,7 @@ public class GuestbookService {
 		guestbook.setStatus(GuestbookConstant.status.init);
 		guestbook.setCreateTime(new Date());
 		guestbook.setReplyTime(guestbook.getCreateTime());
-		guestbookDao.addGuestbook(guestbook);
-		return guestbook;*/
-		return null;
+		return guestbookDao.save(guestbook);
 	}
 
 	public int updateReplyByMessageId(String reply, long messageId,

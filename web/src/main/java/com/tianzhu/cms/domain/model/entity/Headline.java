@@ -39,7 +39,7 @@ public class Headline implements Serializable {
 	private String name;
 
 	@Column(length=200)
-	private String piture;
+	private String picture;
 
 	private int sort;
 
@@ -73,12 +73,12 @@ public class Headline implements Serializable {
 		this.name = name;
 	}
 
-	public String getPiture() {
-		return this.piture;
+	public String getPicture() {
+		return this.picture;
 	}
 
-	public void setPiture(String piture) {
-		this.piture = piture;
+	public void setPicture(String piture) {
+		this.picture = piture;
 	}
 
 	public int getSort() {

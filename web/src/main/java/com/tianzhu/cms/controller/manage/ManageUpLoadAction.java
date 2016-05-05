@@ -28,7 +28,7 @@ public class ManageUpLoadAction {
 
 	@RequestMapping(value = "upload.htm", method = RequestMethod.GET)
 	public String upload() {
-		return "admin/upload";
+		return "admin/upload.ftl";
 	}
 
 	@ResponseBody

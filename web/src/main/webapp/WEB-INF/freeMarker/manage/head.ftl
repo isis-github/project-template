@@ -33,8 +33,8 @@
       <script src="/static/js/respond.min.js"></script>
     <![endif]-->
 	<script type="text/javascript">
-		window.BasePath = "${BASE_PATH}";
-		window.UEDITOR_HOME_URL = "${BASE_PATH}/";
+		window.BasePath = "";
+		window.UEDITOR_HOME_URL = "/";
 		kindId = 0;
 		kind = "article";
 	</script>
@@ -47,7 +47,7 @@
 		<header class="white-bg">
 			<div class="container" style="background-color: #ffffff; padding: 10px;">
 				<!--logo start-->
-				<a href="${BASE_PATH}/index.htm" class="logo" title="访问前台页面">
+				<a href="/index.htm" class="logo" title="访问前台页面">
 					<img src="/static/images/logo.png" style="height: 38px;" />
 				</a>
 				<!--logo end-->
@@ -60,13 +60,13 @@
 	                  <!-- user login dropdown start-->
 	                  <li class="dropdown">
 	                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	                          <span class="username">${SESSION_ADMIN.name}</span>
+	                          <span class="username">SESSION_ADMIN.name</span>
 	                          <b class="caret"></b>
 	                      </a>
 	                      <ul class="dropdown-menu extended logout">
 	                          <div class="log-arrow-up"></div>
-	                          <li><a href="${BASE_PATH}/manage/admin/update.htm"><i class="icon-cog"></i> 修改密码</a></li>
-	                          <li><a href="${BASE_PATH}/admin/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
+	                          <li><a href="/manage/admin/update.htm"><i class="icon-cog"></i> 修改密码</a></li>
+	                          <li><a href="/admin/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
 	                      </ul>
 	                  </li>
 	                  <!-- user login dropdown end -->
@@ -83,29 +83,29 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 					<#if SESSION_ADMIN.isAdmin>
 					<li class="">
-						<a <#if menu="article">class="active"</#if> href="${BASE_PATH}/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
+						<a <#if menu="article">class="active"</#if> href="/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
 					</li>
 					<li class="sub-menu">
-						<a href="${BASE_PATH}/manage/headline/list.htm" <#if menu="headline">class="active"</#if>> <i class="icon-desktop"></i> <span>首页头条</span></a>
+						<a href="/manage/headline/list.htm" <#if menu="headline">class="active"</#if>> <i class="icon-desktop"></i> <span>首页头条</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="folder">class="active"</#if> href="${BASE_PATH}/manage/folder/list.htm"> <i class="icon-folder-open"></i> <span>目录列表</span></a>
+						<a <#if menu="folder">class="active"</#if> href="/manage/folder/list.htm"> <i class="icon-folder-open"></i> <span>目录列表</span></a>
 					</li>	
 					<li class="">
-						<a <#if menu="message">class="active"</#if> href="${BASE_PATH}/manage/guestbook/list.htm"> <i class="icon-comments"></i> <span>留言列表</span></a>
+						<a <#if menu="message">class="active"</#if> href="/manage/guestbook/list.htm"> <i class="icon-comments"></i> <span>留言列表</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="admin_list">class="active"</#if> href="${BASE_PATH}/manage/admin/manage.htm"> <i class="icon-user"></i> <span>管理员管理</span></a>
+						<a <#if menu="admin_list">class="active"</#if> href="/manage/admin/manage.htm"> <i class="icon-user"></i> <span>管理员管理</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
+						<a <#if menu="update_password">class="active"</#if> href="/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
 					</li>
 					<#else>
 					<li class="">
-						<a <#if menu="article">class="active"</#if> href="${BASE_PATH}/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
+						<a <#if menu="article">class="active"</#if> href="/manage/article/list.htm"> <i class="icon-book"></i> <span>文章列表</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-home"></i> <span>修改密码</span></a>
+						<a <#if menu="update_password">class="active"</#if> href="/manage/admin/update.htm"> <i class="icon-home"></i> <span>修改密码</span></a>
 					</li>
 					</#if>
 					<li class="">

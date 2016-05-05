@@ -34,10 +34,10 @@ public class FolderAction extends BaseAction {
 	public String folder(@PathVariable long folderId,
 			@RequestParam(value = "p", defaultValue = "1") long p,
 			ModelMap modelMap) {
-		/*try {
+		try {
 			Folder folder = folderService.getFolderById(folderId);
 			modelMap.put("folder", folder);
-			FolderVo fatherFolder = folderService.getFolderById(folderService.firstFolderId(folderId));
+			Folder fatherFolder = folderService.getFolderById(folderService.firstFolderId(folderId));
 			modelMap.put("g_folderId", fatherFolder.getFolderId());
 			modelMap.put("p", p);
 			return themeService.getFolderTemplate(folder.getFolderId());
@@ -45,7 +45,7 @@ public class FolderAction extends BaseAction {
 			modelMap.addAttribute("g_folderId", 0);
 			logger.fatal(e.getMessage());
 			return themeService.get404();
-		}*/
-		return null;
+		}
+		//return null;
 	}
 }

@@ -38,7 +38,7 @@ public class ManageAdminAction extends ManageBaseAction {
 	public String addUser(ModelMap modelMap) {
 		modelMap.put("adminName", "");
 		modelMap.put("email", "");
-		return "manage/admin/add";
+		return "manage/admin/add.ftl";
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ManageAdminAction extends ManageBaseAction {
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 		modelMap.put("pageVo", adminService.getAllListPage(pageNum));
-		return "manage/admin/manage";
+		return "manage/admin/manage.ftl";
 	}
 
 	/**
@@ -81,8 +81,10 @@ public class ManageAdminAction extends ManageBaseAction {
 			}
 			// 检测校验结果
 			validate(json);
-			/*adminService.addAdmin(SSUtils.toText(adminName.trim()),
-					password);*/
+			Admin ad = new Admin();
+			ad.setName(SSUtils.toText(adminName.trim()));
+			ad.setPassword(password);
+			adminService.save(ad);
 			json.setResult(true);
 		} catch (Exception e) {
 			json.setResult(false);
@@ -100,7 +102,7 @@ public class ManageAdminAction extends ManageBaseAction {
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			ModelMap modelMap) {
 		modelMap.put("pageVo", adminService.getAllListPage(pageNum));
-		return "manage/admin/all";
+		return "manage/admin/all.ftl";
 	}
 
 	/**
@@ -111,11 +113,11 @@ public class ManageAdminAction extends ManageBaseAction {
 	public String update(
 			@RequestParam(value = "adminId", defaultValue = "0") long adminId,
 			ModelMap modelMap, HttpServletRequest request) {
-		/*Admin sessionAdmin = this.getAdmin(request);
+		Admin sessionAdmin = this.getAdmin(request);
 		Admin admin = adminService.getAdminById(sessionAdmin.getAdminId());
 		modelMap.put("admin", admin);
-		return "manage/admin/update";*/
-		return null;
+		return "manage/admin/update.ftl";
+		//return null;
 	}
 
 	/**
@@ -141,9 +143,9 @@ public class ManageAdminAction extends ManageBaseAction {
 			// 检测校验结果
 			validate(json);
 			SSUtils.toText(password);
-			/*Admin admin = this.getAdmin(request);
+			Admin admin = this.getAdmin(request);
 			adminService.updateAdminByAmdinId(admin.getAdminId(),
-					SSUtils.toText(password));*/
+					SSUtils.toText(password));
 			json.setResult(true);
 		} catch (Exception e) {
 			json.setResult(false);

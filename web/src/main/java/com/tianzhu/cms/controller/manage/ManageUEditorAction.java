@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baidu.ueditor.ActionEnter;
 import com.tianzhu.cms.domain.constant.SystemConstant;
 import com.tianzhu.cms.util.HttpUtils;
 import com.tianzhu.cms.util.MediaUtils;
@@ -39,8 +40,8 @@ public class ManageUEditorAction extends ManageBaseAction {
 		// root += "/";
 		// }
 		logger.info("ueditor root:"+root);
-		//return new ActionEnter(request, root).exec();
-		return null;
+		return new ActionEnter(request, root).exec();
+		//return null;
 	}
 
 	/**

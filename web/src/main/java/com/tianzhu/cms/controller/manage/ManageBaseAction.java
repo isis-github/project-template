@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.tianzhu.cms.domain.constant.SystemConstant;
 import com.tianzhu.cms.domain.exception.ValidateException;
 import com.tianzhu.cms.domain.model.entity.Admin;
 import com.tianzhu.cms.domain.pojo.JsonVo;
@@ -76,9 +77,9 @@ public class ManageBaseAction {
 	 * @return
 	 */
 	protected Admin getAdmin(HttpServletRequest request) {
-		/*AdminVo admin = (AdminVo) request.getSession().getAttribute(
+		Admin admin = (Admin) request.getSession().getAttribute(
 				SystemConstant.SESSION_ADMIN);
-		return admin;*/
-		return null;
+		return admin;
+		//return null;
 	}
 }

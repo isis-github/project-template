@@ -20,6 +20,6 @@ public interface FolderDao extends JpaRepository<Folder, Long> {
 	
 	
 	@Query(value="SELECT f FROM Folder f where f.folderId = :folderId and f.status = :status order by f.sort")
-	public List<Folder> getFolderListByFatherId(@Param("folderId") Long fatherId, @Param("status") int status);
+	public List<Folder> getFolderListByFatherId(@Param("folderId") Long fatherId, @Param("status") Integer status);
 
 }

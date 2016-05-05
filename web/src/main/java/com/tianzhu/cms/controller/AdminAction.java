@@ -48,7 +48,7 @@ public class AdminAction extends BaseAction {
 
 	@RequestMapping(value = "/login.htm", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, ModelMap modelMap) {
-		return "/manage/login";
+		return "/manage/login.ftl";
 	}
 
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)

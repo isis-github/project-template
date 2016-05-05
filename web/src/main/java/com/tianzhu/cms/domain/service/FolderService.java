@@ -242,7 +242,7 @@ public class FolderService {
 	 */
 	@Cacheable(value = "folder")
 	public List<Folder> getFolderListByFatherId(long fatherId,
-			int status) {
+			Integer status) {
 		logger.info("cache missing!!!");
 		return folderDao.getFolderListByFatherId(fatherId, status);
 		//return null;
@@ -269,13 +269,13 @@ public class FolderService {
 
 	@Cacheable(value = "folder")
 	public boolean isFolderByEname(String ename) {
-		/*Folder folder = folderDao.getFolderByEname(ename);
+		Folder folder = folderDao.getFolderByEname(ename);
 		if (folder == null) {
 			return false;
 		} else {
 			return true;
-		}*/
-		return false;
+		}
+		
 	}
 
 	/**
@@ -300,7 +300,7 @@ public class FolderService {
 			}
 			return list;
 		}
-		//return null;
+		
 	}
 
 	@CacheEvict(value = "folder", allEntries = true)
@@ -327,10 +327,10 @@ public class FolderService {
 	}
 
 	public Long firstFolderId(Long folderId) {
-		/*FolderVo folder = folderDao.getFolderById(folderId);
+		Folder folder = folderDao.getFolderById(folderId);
 		String[] folderIdList = folder.getPath().split("#");
-		return Long.parseLong(folderIdList[0]);*/
-		return null;
+		return Long.parseLong(folderIdList[0]);
+		//return null;
 	}
 
 }

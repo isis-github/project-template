@@ -55,7 +55,7 @@ public class ManageMediaAction extends ManageBaseAction {
 		modelMap.put("JSESSIONID", request.getSession().getId());
 		modelMap.put("folder", folder);
 		modelMap.put("attachmentPage", attachmentPage);
-		return "manage/attachment/page";*/
+		return "manage/attachment/page.ftl";*/
 		return null;
 	}
 

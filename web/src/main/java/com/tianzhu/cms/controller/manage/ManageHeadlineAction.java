@@ -27,10 +27,10 @@ public class ManageHeadlineAction extends ManageBaseAction {
 
 	@RequestMapping(value = "/list.htm", method = RequestMethod.GET)
 	public String list(ModelMap modelMap, HttpServletRequest request) {
-		/*List<HeadlineVo> headlineList = headlineService.getHeadlineList();
+		List<Headline> headlineList = headlineService.getHeadlineList();
 		modelMap.put("headlineList", headlineList);
-		return "manage/headline/list";*/
-		return null;
+		return "manage/headline/list.ftl";
+		//return null;
 	}
 
 	@RequestMapping(value = "/add.htm", method = RequestMethod.GET)
@@ -39,7 +39,7 @@ public class ManageHeadlineAction extends ManageBaseAction {
 		int height = configService.getIntKey("shishuo_headline_image_height");
 		modelMap.put("width", width);
 		modelMap.put("height", height);
-		return "manage/headline/add";
+		return "manage/headline/add.ftl";
 	}
 
 	@RequestMapping(value = "/update.htm", method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class ManageHeadlineAction extends ManageBaseAction {
 			ModelMap modelMap, HttpServletRequest request) {
 		Headline headline = headlineService.getHeadlineById(headlineId);
 		modelMap.put("headline", headline);
-		return "manage/headline/update";
+		return "manage/headline/update.ftl";
 	}
 
 	@ResponseBody
@@ -101,9 +101,9 @@ public class ManageHeadlineAction extends ManageBaseAction {
 	public JsonVo<String> deleteFile(
 			@RequestParam(value = "headlineId") long headlineId) {
 		JsonVo<String> json = new JsonVo<String>();
-		/*HeadlineVo headline = headlineService.getHeadlineById(headlineId);
+		Headline headline = headlineService.getHeadlineById(headlineId);
 		headlineService.deleteHeadline(headlineId, headline.getPicture());
-		json.setResult(true);*/
+		json.setResult(true);
 		return json;
 	}
 

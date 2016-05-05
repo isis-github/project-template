@@ -52,7 +52,7 @@ public class ManageFolderAction extends ManageBaseAction {
 				folderService.getAllFolderList(admin.getAdminId()));
 		modelMap.put("folderName", "");
 		modelMap.put("folderEname", "");
-		return "manage/folder/add";
+		return "manage/folder/add.ftl";
 	}
 
 	/**
@@ -105,17 +105,17 @@ public class ManageFolderAction extends ManageBaseAction {
 			@RequestParam(value = "folderId", defaultValue = "0") long folderId,
 			ModelMap modelMap, HttpServletRequest request)
 			throws FolderNotFoundException {
-		/*List<FolderVo> pathList = folderService
+		List<Folder> pathList = folderService
 				.getFolderPathListByFolderId(folderId);
 		Folder folder = new Folder();
 		if (folderId == 0) {
-			folder.setFolderId(0);
+			folder.setFolderId(0L);
 			folder.setName("首页");
 		} else {
 			folder = folderService.getFolderById(folderId);
 		}
 		Admin admin = this.getAdmin(request);
-		List<FolderVo> folderList = folderService.getFolderListByFatherId(
+		List<Folder> folderList = folderService.getFolderListByFatherId(
 				folderId, null);
 		modelMap.put("folder", folder);
 		modelMap.put("folderList", folderList);
@@ -124,8 +124,8 @@ public class ManageFolderAction extends ManageBaseAction {
 		modelMap.put("folderEname", "");
 		modelMap.put("folderAll",
 				folderService.getAllFolderList(admin.getAdminId()));
-		return "manage/folder/list";*/
-		return null;
+		return "manage/folder/list.ftl";
+		
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class ManageFolderAction extends ManageBaseAction {
 			@RequestParam(value = "content", required = false) String content) {
 		JsonVo<String> json = new JsonVo<String>();
 		// FIXME 检查目录的ename不能用循环遍历检查
-		/*List<FolderVo> list = folderService.getAllFolderList(0);
+		List<Folder> list = folderService.getAllFolderList(0);
 		try {
 			if (name.equals("")) {
 				json.getErrors().put("name", "目录名称不能为空");
@@ -202,8 +202,8 @@ public class ManageFolderAction extends ManageBaseAction {
 			json.setResult(false);
 			json.setMsg(e.getMessage());
 		}
-		return json;*/
-		return null;
+		return json;
+		
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class ManageFolderAction extends ManageBaseAction {
 	public JsonVo<String> delete(@RequestParam(value = "folderId") long folderId)
 			throws FolderNotFoundException {
 		JsonVo<String> json = new JsonVo<String>();
-		/*List<FolderVo> folderList = folderService.getFolderListByFatherId(
+		List<Folder> folderList = folderService.getFolderListByFatherId(
 				folderId, null);
 		if (folderList.size() == 0) {
 			int count = articleService.getArticleCountByFolderId(folderId);
@@ -252,7 +252,7 @@ public class ManageFolderAction extends ManageBaseAction {
 			json.setResult(false);
 			json.setMsg("此目录下有子目录，不能删除。");
 		}
-		return json;*/
-		return null;
+		return json;
+		
 	}
 }
