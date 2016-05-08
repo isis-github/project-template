@@ -29,11 +29,11 @@ public class ManageGuestbookAction extends ManageBaseAction {
 	public String login(ModelMap modelMap,
 			@RequestParam(value = "p", defaultValue = "1") int p)
 			throws Exception {
-		/*PageVo<GuestbookVo> pageVo = guestbookService.getMessageBoardPage(p,
+		PageVo<Guestbook> pageVo = guestbookService.getMessageBoardPage(p,
 				null, null);
 		modelMap.put("pageVo", pageVo);
-		return "manage/guestbook/list";*/
-		return null;
+		return "manage/guestbook/list.ftl";
+		
 	}
 
 	@RequestMapping(value = "/details.htm", method = RequestMethod.GET)

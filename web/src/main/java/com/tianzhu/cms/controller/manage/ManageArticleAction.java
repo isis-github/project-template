@@ -30,6 +30,7 @@ import com.tianzhu.cms.domain.exception.FolderNotFoundException;
 import com.tianzhu.cms.domain.exception.UploadException;
 import com.tianzhu.cms.domain.model.entity.Admin;
 import com.tianzhu.cms.domain.model.entity.Article;
+import com.tianzhu.cms.domain.model.entity.Folder;
 import com.tianzhu.cms.domain.model.entity.Media;
 import com.tianzhu.cms.domain.pojo.JsonVo;
 import com.tianzhu.cms.domain.pojo.PageVo;
@@ -51,12 +52,12 @@ public class ManageArticleAction extends ManageBaseAction {
 			ModelMap modelMap,
 			@RequestParam(value = "folderId", defaultValue = "0") long folderId)
 			throws FolderNotFoundException {
-		/*Admin admin = this.getAdmin(request);
+		Admin admin = this.getAdmin(request);
 		modelMap.put("folderAll",
 				folderService.getAllFolderList(admin.getAdminId()));
 		modelMap.put("folderId", folderId);
-		return "manage/article/add";*/
-		return null;
+		return "manage/article/add.ftl";
+		//return null;
 	}
 
 	@ResponseBody
@@ -72,7 +73,7 @@ public class ManageArticleAction extends ManageBaseAction {
 			HttpServletRequest request, ModelMap modelMap)
 			throws UploadException, ParseException {
 		JsonVo<Article> json = new JsonVo<Article>();
-		/*try {
+		try {
 			Article article = articleService.addArticle(folderId, this
 					.getAdmin(request).getAdminId(), SSUtils.toText(title
 					.trim()), SSUtils.toText(summary), status, content, file,
@@ -88,8 +89,8 @@ public class ManageArticleAction extends ManageBaseAction {
 			e.printStackTrace();
 			json.setResult(false);
 			return json;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	/**
@@ -101,13 +102,13 @@ public class ManageArticleAction extends ManageBaseAction {
 	public String list(
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			@RequestParam(value = "folderId", defaultValue = "0") long folderId,
-			@RequestParam(value = "check", required = false) ArticleConstant.check check,
+			@RequestParam(value = "check", required = false) int check,
 			HttpServletRequest request, ModelMap modelMap)
 			throws FolderNotFoundException {
-		/*Admin admin = this.getAdmin(request);
-		List<FolderVo> pathList = folderService
+		Admin admin = this.getAdmin(request);
+		List<Folder> pathList = folderService
 				.getFolderPathListByFolderId(folderId);
-		PageVo<ArticleVo> pageVo = articleService.getArticlePageByFolderId(
+		PageVo<Article> pageVo = articleService.getArticlePageByFolderId(
 				admin.getAdminId(), folderId, check, pageNum);
 		int initCount = articleService.getArticleCountByAdminIdAndFolderId(
 				admin.getAdminId(), 0, ArticleConstant.check.init);
@@ -124,8 +125,8 @@ public class ManageArticleAction extends ManageBaseAction {
 		modelMap.put("initCount", initCount);
 		modelMap.put("noCount", noCount);
 		modelMap.put("allCount", allCount);
-		return "manage/article/list";*/
-		return null;
+		return "manage/article/list.ftl";
+		
 	}
 
 	/**
@@ -138,14 +139,14 @@ public class ManageArticleAction extends ManageBaseAction {
 			@RequestParam(value = "articleId", defaultValue = "1") long articleId,
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		/*Admin admin = this.getAdmin(request);
-		ArticleVo article = articleService.getArticleById(articleId);
+		Admin admin = this.getAdmin(request);
+		Article article = articleService.getArticleById(articleId);
 		modelMap.put("article", article);
 		modelMap.put("folderAll",
 				folderService.getAllFolderList(admin.getAdminId()));
 		modelMap.put("JSESSIONID", request.getSession().getId());
-		return "manage/article/update";*/
-		return null;
+		return "manage/article/update.ftl";
+		//return null;
 	}
 
 	/**
@@ -176,7 +177,7 @@ public class ManageArticleAction extends ManageBaseAction {
 			HttpServletRequest request, ModelMap modelMap)
 			throws ParseException {
 		JsonVo<Article> json = new JsonVo<Article>();
-		/*try {
+		try {
 			Article article = articleService.updateArticle(articleId,
 					folderId, this.getAdmin(request).getAdminId(),
 					SSUtils.toText(title.trim()), SSUtils.toText(summary),
@@ -196,8 +197,8 @@ public class ManageArticleAction extends ManageBaseAction {
 			e.printStackTrace();
 			json.setResult(false);
 			return json;
-		}*/
-		return null;
+		}
+		//return null;
 	}
 
 	/**
@@ -210,7 +211,7 @@ public class ManageArticleAction extends ManageBaseAction {
 	public JsonVo<String> deleteFile(
 			@RequestParam(value = "articleId") long articleId)
 			throws ArticleNotFoundException {
-		/*JsonVo<String> json = new JsonVo<String>();
+		JsonVo<String> json = new JsonVo<String>();
 		// 删除文件系统
 		articleService.deleteArticleById(articleId);
 		List<Media> attachmentList = attachmentService.getMediaPageByKindId(
@@ -220,8 +221,8 @@ public class ManageArticleAction extends ManageBaseAction {
 					attachment.getPath());
 		}
 		json.setResult(true);
-		return json;*/
-		return null;
+		return json;
+		//return null;
 	}
 
 	/**
@@ -233,19 +234,19 @@ public class ManageArticleAction extends ManageBaseAction {
 	@RequestMapping(value = "/check.json", method = RequestMethod.POST)
 	public JsonVo<String> check(
 			@RequestParam(value = "articleId") long articleId,
-			@RequestParam(value = "check") ArticleConstant.check check,
+			@RequestParam(value = "check") int check,
 			HttpServletRequest request) throws ArticleNotFoundException {
-		/*JsonVo<String> json = new JsonVo<String>();
-		AdminVo admin = this.getAdmin(request);
-		if (!admin.getIsAdmin()) {
+		JsonVo<String> json = new JsonVo<String>();
+		Admin admin = this.getAdmin(request);
+		/*if (!admin.getIsAdmin()) {
 			json.setResult(false);
 			json.setMsg("您不是超级管理员，无权该审核文件！");
-		} else {
+		} else {*/
 			articleService.updateCheck(articleId, check);
 			json.setResult(true);
-		}
-		return json;*/
-		return null;
+		//}
+		return json;
+		//return null;
 	}
 
 	// @RequestMapping(value = "/preview.htm", method = RequestMethod.GET)

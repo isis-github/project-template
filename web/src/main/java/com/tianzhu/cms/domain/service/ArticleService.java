@@ -21,6 +21,7 @@ import com.tianzhu.cms.domain.exception.ArticleNotFoundException;
 import com.tianzhu.cms.domain.exception.FolderNotFoundException;
 import com.tianzhu.cms.domain.exception.UploadException;
 import com.tianzhu.cms.domain.model.entity.Article;
+import com.tianzhu.cms.domain.pojo.PageVo;
 import com.tianzhu.cms.domain.repository.ArticleDao;
 
 /**
@@ -235,7 +236,7 @@ public class ArticleService {
 	 * @throws FolderNotFoundException
 	 */
 	@Cacheable(value = "article")
-	public Article getArticlePageByFolderId(long folderId,
+	public PageVo<Article> getArticlePageByFolderId(long folderId,
 			int pageNum, int rows) throws FolderNotFoundException {
 		/*PageVo<ArticleVo> pageVo = new PageVo<ArticleVo>(pageNum);
 		FolderVo folder = folderService.getFolderById(folderId);
@@ -268,8 +269,8 @@ public class ArticleService {
 	 * @throws FolderNotFoundException
 	 * 
 	 */
-	public Article getArticlePageByFolderId(long adminId,
-			long folderId, ArticleConstant.check check, int pageNum)
+	public PageVo<Article> getArticlePageByFolderId(long adminId,
+			long folderId, int check, int pageNum)
 			throws FolderNotFoundException {
 		/*PageVo<ArticleVo> pageVo = new PageVo<ArticleVo>(pageNum);
 		pageVo.setRows(20);
@@ -336,7 +337,7 @@ public class ArticleService {
 	 * @throws FolderNotFoundException
 	 */
 	public int getArticleCountByAdminIdAndFolderId(long adminId,
-			long folderId, ArticleConstant.check check)
+			long folderId, int check)
 			throws FolderNotFoundException {
 		/*String path = "";
 		if (folderId != 0) {
@@ -360,8 +361,8 @@ public class ArticleService {
 	}
 
 	@CacheEvict(value = "article", allEntries = true)
-	public void updateCheck(long articleId/*,
-			com.shishuo.cms.constant.ArticleConstant.check check*/) {
+	public void updateCheck(long articleId,
+			int check) {
 		//articleDao.updateCheck(articleId, check);
 	}
 

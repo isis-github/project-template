@@ -12,12 +12,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tianzhu.cms.domain.constant.MediaConstant;
 import com.tianzhu.cms.domain.exception.UploadException;
 import com.tianzhu.cms.domain.model.entity.Media;
+import com.tianzhu.cms.domain.pojo.PageVo;
 import com.tianzhu.cms.domain.repository.MediaDao;
 import com.tianzhu.cms.util.MediaUtils;
 
@@ -102,8 +105,8 @@ public class MediaService {
 	 * @return
 	 */
 	@Cacheable("media")
-	public Media getMediaPageByKindId(long kindId,
-			MediaConstant.Kind kind, int rows, int pageNum) {
+	public PageVo<Media> getMediaPageByKindId(long kindId,
+			int kind, int rows, int pageNum) {
 		/*PageVo<Media> pageVo = new PageVo<Media>(pageNum);
 		pageVo.setRows(rows);
 		pageVo.setCount(mediaDao.getMediaCountByKindId(kindId, kind));
@@ -138,7 +141,7 @@ public class MediaService {
 	 */
 	@Cacheable("media")
 	public List<Media> getMediaListByKindId(long kindId,
-			MediaConstant.Kind kind, int rows) {
+			int kind, int rows) {
 		//return mediaDao.getMediaListByKindId(kindId, kind, 0, rows);
 		return null;
 

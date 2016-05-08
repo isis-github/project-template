@@ -48,15 +48,15 @@ public class ManageMediaAction extends ManageBaseAction {
 			@RequestParam(value = "folderId", defaultValue = "1") long folderId,
 			HttpServletRequest request, ModelMap modelMap)
 			throws FolderNotFoundException {
-		/*Folder folder = folderService.getFolderById(folderId);
+		Folder folder = folderService.getFolderById(folderId);
 		PageVo<Media> attachmentPage = attachmentService.getMediaPageByKindId(
 				folderId, MediaConstant.Kind.folder, 12, pageNum);
 		modelMap.put("folderAll", folderService.getAllFolderList(0));
 		modelMap.put("JSESSIONID", request.getSession().getId());
 		modelMap.put("folder", folder);
 		modelMap.put("attachmentPage", attachmentPage);
-		return "manage/attachment/page.ftl";*/
-		return null;
+		return "manage/attachment/page.ftl";
+		
 	}
 
 	/**
@@ -67,12 +67,12 @@ public class ManageMediaAction extends ManageBaseAction {
 	@ResponseBody
 	@RequestMapping(value = "/list.json", method = RequestMethod.GET)
 	public String attachment(@RequestParam("kindId") long kindId) {
-		/*List<Media> attachmentList = attachmentService.getMediaListByKindId(
+		List<Media> attachmentList = attachmentService.getMediaListByKindId(
 				kindId, MediaConstant.Kind.article, 100);
 		JSONObject json = new JSONObject();
 		json.put("attachmentList", attachmentList);
-		return json.toString();*/
-		return null;
+		return json.toString();
+		//return null;
 	}
 
 	/**
@@ -140,19 +140,19 @@ public class ManageMediaAction extends ManageBaseAction {
 	@ResponseBody
 	@RequestMapping(value = "/ueditor/manager.htm", method = RequestMethod.POST)
 	public String photoManager(@RequestParam(value = "kindId") long kindId,
-			@RequestParam(value = "kind") MediaConstant.Kind kind,
+			@RequestParam(value = "kind") int kind,
 			HttpServletRequest request) {
-		/*List<Media> attachmentList = attachmentService.getMediaListByKindId(
+		List<Media> attachmentList = attachmentService.getMediaListByKindId(
 				kindId, kind, 100);
 		List<String> picturePathList = new ArrayList<String>();
 		for (Media attachment : attachmentList) {
-			if (attachment.getType().equals(MediaConstant.Type.photo)) {
+			if (attachment.getType()==(MediaConstant.Type.photo)) {
 				picturePathList.add(attachment.getPath().replace(
 						java.io.File.separator, "/"));
 			}
 		}
-		return StringUtils.join(picturePathList.toArray(), "ue_separate_ue");*/
-		return null;
+		return StringUtils.join(picturePathList.toArray(), "ue_separate_ue");
+		//return null;
 	}
 
 	@ResponseBody

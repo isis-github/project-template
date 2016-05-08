@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tianzhu.cms.domain.constant.GuestbookConstant;
 import com.tianzhu.cms.domain.model.entity.Guestbook;
+import com.tianzhu.cms.domain.pojo.PageVo;
 import com.tianzhu.cms.domain.repository.GuestbookDao;
 
 @Service
@@ -61,7 +64,7 @@ public class GuestbookService {
 		return 0;
 	}
 
-	public Guestbook getMessageBoardPage(int pageNum,
+	public PageVo<Guestbook> getMessageBoardPage(int pageNum,
 			GuestbookConstant.status status, String number) {
 		/*PageVo<GuestbookVo> pageVo = new PageVo<GuestbookVo>(pageNum);
 		pageVo.setRows(10);

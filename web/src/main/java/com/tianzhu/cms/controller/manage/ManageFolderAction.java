@@ -137,7 +137,7 @@ public class ManageFolderAction extends ManageBaseAction {
 	public String oneFolder(@RequestParam("folderId") long folderId,
 			@RequestParam(value = "p", defaultValue = "1") int p,
 			ModelMap modelMap, HttpServletRequest request) throws Exception {
-		/*Folder folder = folderService.getFolderById(folderId);
+		Folder folder = folderService.getFolderById(folderId);
 		if (folder.getContent() == null) {
 			folder.setContent("");
 		}
@@ -155,8 +155,8 @@ public class ManageFolderAction extends ManageBaseAction {
 		modelMap.put("folderAll", folderService.getAllFolderList(0));
 		modelMap.put("JSESSIONID", request.getSession().getId());
 		modelMap.put("attachmentPage", pageVo);
-		return "manage/folder/update";*/
-		return null;
+		return "manage/folder/update.ftl";
+		//return null;
 	}
 
 	/**

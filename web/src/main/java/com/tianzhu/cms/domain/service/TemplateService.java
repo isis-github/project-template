@@ -161,7 +161,7 @@ public class TemplateService {
 	 */
 	@Cacheable("default")
 	public Boolean isExist(String theme) {
-		String themePath = "/WEB-INF/freeMarker/"
+		String themePath = "/WEB-INF/freeMarker/template/"
 				+ configService.getStringByKey(ConfigConstant.SHISHUO_TEMPLATE)
 				+ "/" + theme + ".ftl";
 		File file = new File(SystemConstant.SHISHUO_CMS_ROOT + themePath);

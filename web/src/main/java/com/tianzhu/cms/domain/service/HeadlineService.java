@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tianzhu.cms.domain.exception.UploadException;
 import com.tianzhu.cms.domain.model.entity.Headline;
 import com.tianzhu.cms.domain.repository.HeadlineDao;
+import com.tianzhu.cms.util.MediaUtils;
 
 @Service
 public class HeadlineService {
@@ -37,33 +38,34 @@ public class HeadlineService {
 	}
 
 	public List<Headline> getHeadlineList() {
-		//return headlineDao.getHeadlineList();
-		return null;
+		return headlineDao.findAll();
+		
 	}
 
 	public int updateHeadlineById(long headlineId, String name,
 			MultipartFile file, String url) throws UploadException, IOException {
-		/*String picture = this.getHeadlineById(headlineId).getPicture();
+		String picture = this.getHeadlineById(headlineId).getPicture();
 		if (file != null && !file.isEmpty()) {
 			picture = MediaUtils.saveImage(file,
 					configService.getIntKey("shishuo_headline_image_width"),
 					configService.getIntKey("shishuo_headline_image_height"));
 		}
-		return headlineDao.updateHeadlineById(headlineId, name, picture, url);*/
+		return headlineDao.updateHeadlineById(headlineId, name, picture, url);
 		return 0;
 	}
 
 	public Headline getHeadlineById(long headlineId) {
 		//return headlineDao.getHeadlineById(headlineId);
-		return null;
+		return headlineDao.findOne(headlineId);
 	}
 
 	public void deleteHeadline(long headlineId, String pictureUrl) {
-		/*headlineDao.deleteHeadline(headlineId);
-		MediaUtils.deleteFile(pictureUrl);*/
+		
+		headlineDao.delete(headlineId);
+		MediaUtils.deleteFile(pictureUrl);
 	}
 
 	public void updateSortById(long headlineId, int sort) {
-		//headlineDao.updateSortById(headlineId, sort);
+		headlineDao.updateSortById(headlineId, sort);
 	}
 }

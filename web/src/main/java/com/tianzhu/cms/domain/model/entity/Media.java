@@ -57,10 +57,9 @@ public class Media implements Serializable {
 	@JoinColumn(name="ARTICLE_ID", nullable=false)
 	private Article Article;
 	
-	//bi-directional many-to-one association to Article
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="FOLDER_ID", nullable=false)
-		private Folder folder;
+
+	@Column(name="KIND_ID", unique=true, nullable=false)
+	private Long kindId;
 
 	public Media() {
 	}
@@ -71,6 +70,14 @@ public class Media implements Serializable {
 
 	public void setMediaId(Long mediaId) {
 		this.mediaId = mediaId;
+	}
+	
+	public Long getKindId() {
+		return this.kindId;
+	}
+
+	public void setKindId(Long kindId) {
+		this.kindId = mediaId;
 	}
 
 	public String getArticleTitle() {
@@ -129,12 +136,5 @@ public class Media implements Serializable {
 		this.Article = Article;
 	}
 	
-	public Folder getFolder() {
-		return this.folder;
-	}
-
-	public void setArticle(Folder folder) {
-		this.folder = folder;
-	}
-
+	
 }
